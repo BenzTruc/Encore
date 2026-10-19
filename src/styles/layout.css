@@ -1,0 +1,83 @@
+/* ---------- App shell ---------- */
+.shell { min-height: 100dvh; }
+.main { min-width: 0; padding-left: calc(var(--sidebar) + 28px); }
+.page {
+  padding: 0 max(32px, env(safe-area-inset-right, 0px)) 120px max(8px, env(safe-area-inset-left, 0px));
+  max-width: 1320px;
+}
+
+/* floating sidebar (iPad / Mac) */
+.sidebar {
+  position: fixed; z-index: 30; top: 12px; bottom: 12px; left: 12px; width: var(--sidebar);
+  padding: 20px 12px 14px; display: flex; flex-direction: column; gap: 2px; border-radius: var(--r-xl);
+  overflow-y: auto; scrollbar-width: none;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+.brand { display: flex; align-items: center; gap: 10px; padding: 2px 10px 16px; color: var(--label); }
+.brand:hover { text-decoration: none; }
+.brand-mark {
+  width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; color: #fff; flex: none;
+  background: linear-gradient(160deg, #ff6b81, #fa2d48 50%, #b0124a);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset, 0 6px 16px rgba(250, 45, 72, 0.4);
+}
+.brand-mark svg { width: 18px; height: 18px; }
+.brand-name { font-family: var(--font-display); font-weight: 750; font-size: 21px; letter-spacing: -0.02em; }
+.nav-label { font-size: 11.5px; font-weight: 600; color: var(--label-3); text-transform: uppercase; letter-spacing: 0.06em; padding: 16px 12px 6px; }
+.nav-item {
+  position: relative; display: flex; align-items: center; gap: 11px; padding: 9px 12px; border-radius: 14px;
+  color: var(--label); font-size: 14.5px; font-weight: 500;
+}
+.nav-item:hover { text-decoration: none; background: var(--fill); }
+.nav-item svg { width: 20px; height: 20px; color: var(--accent-ink); position: relative; z-index: 1; }
+.nav-item span { position: relative; z-index: 1; }
+.nav-item .nav-lens { position: absolute; inset: 0; border-radius: 14px; background: var(--fill-2); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset; }
+.sidebar-foot { margin-top: auto; padding-top: 12px; display: grid; gap: 2px; }
+.acct { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 16px; color: var(--label); }
+.acct:hover { background: var(--fill); text-decoration: none; }
+.avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex: none; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: var(--fill-2); overflow: hidden; }
+.acct small { display: block; color: var(--label-2); font-size: 12px; }
+
+/* floating top bar: shows the page title once the large title scrolls away */
+.topbar {
+  position: sticky; top: calc(10px + env(safe-area-inset-top, 0px)); z-index: 25; height: 52px; margin: 10px 0 0;
+  display: flex; align-items: center; gap: 10px; padding: 0 8px; pointer-events: none;
+}
+.topbar > * { pointer-events: auto; }
+.topbar .title-pill {
+  padding: 8px 16px; border-radius: 999px; font-weight: 650; font-size: 15px; opacity: 0; transform: translateY(-6px) scale(0.96);
+  transition: opacity 0.25s var(--ease), transform 0.35s var(--spring); max-width: 52vw;
+}
+.topbar.scrolled .title-pill { opacity: 1; transform: none; }
+.topbar .spacer { flex: 1; }
+.page-top-space { height: 4px; }
+
+/* ---------- Floating tab bar (iPhone) ---------- */
+.tabbar-wrap { display: none; }
+@media (max-width: 899px) {
+  .main { padding-left: 0; }
+  .sidebar { display: none; }
+  .page { padding: 0 var(--gutter-r) calc(120px + env(safe-area-inset-bottom, 0px)) var(--gutter); }
+  .topbar { margin: 6px 0 0; padding: 0; height: 48px; top: calc(6px + env(safe-area-inset-top, 0px)); }
+  .tabbar-wrap {
+    display: flex; gap: 10px; align-items: flex-end; position: fixed; z-index: 40;
+    left: max(14px, env(safe-area-inset-left, 0px)); right: max(14px, env(safe-area-inset-right, 0px));
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+  .tabbar { flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); padding: 6px; border-radius: 999px; min-width: 0; }
+  .tab {
+    position: relative; display: grid; justify-items: center; gap: 1px; padding: 6px 0 5px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 600; color: var(--label); min-width: 0;
+  }
+  .tab:hover { text-decoration: none; }
+  .tab svg { width: 23px; height: 23px; position: relative; z-index: 1; }
+  .tab span { position: relative; z-index: 1; }
+  .tab.active { color: var(--accent-ink); }
+  .tab .tab-lens { position: absolute; inset: 0; border-radius: 999px; background: var(--fill-2); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.14) inset; }
+  .tab-orb { width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; color: var(--accent-ink); flex: none; }
+  .tab-orb svg { width: 26px; height: 26px; }
+  .tab-orb.active { color: var(--accent-ink); }
+}
+@media (min-width: 900px) and (max-width: 1100px) {
+  :root { --sidebar: 228px; }
+}
+@media (min-width: 900px) { .mobile-only { display: none !important; } }

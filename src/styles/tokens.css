@@ -1,0 +1,81 @@
+/* Encore design tokens — Liquid Glass (iOS 27 style).
+   --glass-t (0…1) is driven by the "Liquid Glass" slider in Settings: 0 = clear, 1 = tinted. */
+:root {
+  --glass-t: 0.45;
+  --accent: #fa2d48;
+  --accent-2: #ff6482;
+  --accent-ink: #ff4d63;
+  --on-accent: #fff;
+  --good: #30d158;
+  --bad: #ff453a;
+
+  /* categorical chart slots (validated palette, dark steps) */
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+  --s5: #d55181; --s6: #2f9e2f; --s7: #9085e9; --s8: #e66767;
+
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Figtree", system-ui, "Segoe UI", sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Figtree", system-ui, "Segoe UI", sans-serif;
+  --font-round: ui-rounded, "SF Pro Rounded", -apple-system, "Figtree", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  --r-xs: 8px; --r-sm: 12px; --r-md: 18px; --r-lg: 26px; --r-xl: 34px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --spring: cubic-bezier(.34, 1.56, .64, 1);
+  --sidebar: 268px;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- dark (default) ---------- */
+:root, :root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #07070a;
+  --bg-2: #0e0e13;
+  --label: #f5f5f7;
+  --label-2: rgba(235, 235, 245, 0.64);
+  --label-3: rgba(235, 235, 245, 0.38);
+  --sep: rgba(255, 255, 255, 0.1);
+  --fill: rgba(255, 255, 255, 0.08);
+  --fill-2: rgba(255, 255, 255, 0.14);
+  --fill-3: rgba(255, 255, 255, 0.2);
+  /* glass material */
+  --glass-rgb: 28 28 34;
+  --glass-fill: rgb(var(--glass-rgb) / calc(0.18 + var(--glass-t) * 0.62));
+  --glass-fill-strong: rgb(var(--glass-rgb) / calc(0.42 + var(--glass-t) * 0.5));
+  --glass-blur: calc(14px + var(--glass-t) * 22px);
+  --glass-rim-a: rgba(255, 255, 255, 0.5);
+  --glass-rim-b: rgba(255, 255, 255, 0.06);
+  --glass-sheen: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 18px 50px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.25);
+  --thumb: rgba(255, 255, 255, 0.2);
+  --heat-0: rgba(255, 255, 255, 0.07);
+  --tip-bg: rgb(36 36 42 / 0.92);
+  --ambient-1: #5c1030; --ambient-2: #2b1660; --ambient-3: #0d3a52; --ambient-base: #07070a;
+}
+
+/* ---------- light ---------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eef0f6;
+  --bg-2: #ffffff;
+  --label: #0b0b0f;
+  --label-2: rgba(60, 60, 67, 0.72);
+  --label-3: rgba(60, 60, 67, 0.42);
+  --sep: rgba(0, 0, 0, 0.09);
+  --fill: rgba(120, 120, 128, 0.12);
+  --fill-2: rgba(120, 120, 128, 0.2);
+  --fill-3: rgba(120, 120, 128, 0.28);
+  --accent-ink: #e0183a;
+  --glass-rgb: 255 255 255;
+  --glass-fill: rgb(var(--glass-rgb) / calc(0.28 + var(--glass-t) * 0.6));
+  --glass-fill-strong: rgb(var(--glass-rgb) / calc(0.55 + var(--glass-t) * 0.4));
+  --glass-rim-a: rgba(255, 255, 255, 0.95);
+  --glass-rim-b: rgba(255, 255, 255, 0.25);
+  --glass-sheen: rgba(255, 255, 255, 0.55);
+  --glass-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 16px 40px rgba(30, 30, 60, 0.14), 0 2px 6px rgba(30, 30, 60, 0.08);
+  --thumb: rgba(255, 255, 255, 0.95);
+  --heat-0: rgba(0, 0, 0, 0.06);
+  --tip-bg: rgb(255 255 255 / 0.92);
+  --ambient-1: #ffc2cd; --ambient-2: #d9ccff; --ambient-3: #bfe6ff; --ambient-base: #eef0f6;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+}

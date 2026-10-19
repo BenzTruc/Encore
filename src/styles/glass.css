@@ -1,0 +1,57 @@
+/* ---------- Liquid Glass material ----------
+   Layers: translucent tinted fill + backdrop blur/saturation (the "glass"),
+   a specular rim that catches light on the top-left and bottom-right edges,
+   and a soft inner sheen near the top (the "lens"). */
+.glass {
+  position: relative;
+  isolation: isolate;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(190%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(190%);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--r-lg);
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, var(--glass-rim-a) 0%, var(--glass-rim-b) 28%, transparent 52%, var(--glass-rim-b) 76%, var(--glass-rim-a) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+  z-index: 1;
+}
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(140% 70% at 30% -20%, var(--glass-sheen), transparent 55%);
+  pointer-events: none;
+  z-index: -1;
+}
+.glass.strong { background: var(--glass-fill-strong); }
+.glass.flat { box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset; }
+.glass.pill { border-radius: 999px; }
+
+/* Fallback when backdrop-filter is unsupported: just use a solid surface. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background: var(--bg-2); }
+}
+
+/* ---------- Ambient wallpaper behind the glass ---------- */
+.ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--ambient-base); pointer-events: none; }
+.ambient .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.9; will-change: transform; }
+.ambient .b1 { width: 62vmax; height: 62vmax; left: -18vmax; top: -22vmax; background: var(--ambient-1); animation: drift1 26s ease-in-out infinite alternate; }
+.ambient .b2 { width: 56vmax; height: 56vmax; right: -20vmax; top: 10vh; background: var(--ambient-2); animation: drift2 32s ease-in-out infinite alternate; }
+.ambient .b3 { width: 50vmax; height: 50vmax; left: 10vw; bottom: -30vmax; background: var(--ambient-3); animation: drift3 28s ease-in-out infinite alternate; }
+.ambient .art { position: absolute; inset: -10%; background-size: cover; background-position: center; filter: blur(90px) saturate(1.6); opacity: 0; transition: opacity 1.2s var(--ease), background-image 0s; transform: scale(1.15); }
+.ambient .art.on { opacity: 0.55; }
+:root[data-theme="light"] .ambient .art.on { opacity: 0.4; }
+.ambient .grain { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--ambient-base) 55%, transparent) 70%, var(--ambient-base) 100%); }
+@keyframes drift1 { to { transform: translate(8vw, 6vh) scale(1.08); } }
+@keyframes drift2 { to { transform: translate(-6vw, 10vh) scale(0.94); } }
+@keyframes drift3 { to { transform: translate(10vw, -8vh) scale(1.1); } }
